@@ -1,21 +1,6 @@
 'use strict';
-// Гарантированное скрытие окна 18+
-window.confirmAge = function() {
-  const modal = document.getElementById('ageModal');
-  if (modal) {
-    modal.style.setProperty('display', 'none', 'important');
-    localStorage.setItem('spirits_age_confirmed', 'true');
-  }
-};
 
-// Проверка при загрузке: если уже нажимали "Да", сразу скрываем
-if (localStorage.getItem('spirits_age_confirmed') === 'true') {
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('ageModal');
-    if (modal) modal.style.setProperty('display', 'none', 'important');
-  });
-}
-// 1. Каталог благородных напитков
+// 1. Каталог благородных напитков (12 товаров строго по категориям)
 const PRODUCTS = [
   // ================= ВИНА =================
   {
@@ -133,13 +118,34 @@ const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=700&q=80'
   }
 ];
+
+// Ключи LocalStorage
 const STORAGE_KEY = 'spirits_store_cart';
 const AGE_STORAGE_KEY = 'spirits_age_confirmed';
 
-// Состояние фильтрации и корзины
+// Вспомогательная функция безопасной загрузки корзины
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  } catch (e) {
+    console.error('Ошибка сохранения:', e);
+  }
+}
+
+// Состояние приложения
 let cart = loadCart();
 let currentCategory = 'all';
 let searchQuery = '';
+
 // DOM элементы
 const productsGrid = document.getElementById('productsGrid');
 const noProducts = document.getElementById('noProducts');
@@ -162,50 +168,32 @@ const toastEl = document.getElementById('toast');
 
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
-
 const ageModal = document.getElementById('ageModal');
-const ageConfirmBtn = document.getElementById('ageConfirmBtn');
 
 const formatPrice = (price) => `${price.toLocaleString('ru-RU')} ₽`;
 
 // ==========================================================================
 // 18+ Верификация возраста
 // ==========================================================================
+window.confirmAge = function() {
+  if (ageModal) {
+    ageModal.classList.add('is-hidden');
+    localStorage.setItem(AGE_STORAGE_KEY, 'true');
+  }
+};
+
 function checkAgeVerification() {
-  if (localStorage.getItem(AGE_STORAGE_KEY) === 'true') {
+  if (localStorage.getItem(AGE_STORAGE_KEY) === 'true' && ageModal) {
     ageModal.classList.add('is-hidden');
   }
 }
 
-ageConfirmBtn.addEventListener('click', () => {
-  localStorage.setItem(AGE_STORAGE_KEY, 'true');
-  ageModal.classList.add('is-hidden');
-});
-
 // ==========================================================================
-// LocalStorage Корзины
-// ==========================================================================
-function loadCart() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    return [];
-  }
-}
-
-function saveCart() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-  } catch (e) {
-    console.error('Ошибка сохранения:', e);
-  }
-}
-
-// ==========================================================================
-// Отрисовка товаров (с учетом фильтра и поиска)
+// Отрисовка товаров
 // ==========================================================================
 function renderProducts() {
+  if (!productsGrid) return;
+
   const filtered = PRODUCTS.filter((item) => {
     const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -215,11 +203,12 @@ function renderProducts() {
 
   if (filtered.length === 0) {
     productsGrid.innerHTML = '';
-    noProducts.style.display = 'block';
+    if (noProducts) noProducts.style.display = 'block';
     return;
   }
 
-  noProducts.style.display = 'none';
+  if (noProducts) noProducts.style.display = 'none';
+
   productsGrid.innerHTML = filtered.map((item) => `
     <article class="product-card">
       <div class="product-card__image-wrap">
@@ -288,30 +277,37 @@ window.removeFromCart = function(productId) {
   updateCartUI();
 };
 
-// Новая функция: полная очистка корзины
-clearCartBtn.addEventListener('click', () => {
-  if (cart.length === 0) return;
-  cart = [];
-  saveCart();
-  updateCartUI();
-  showToast('Корзина полностью очищена');
-});
+if (clearCartBtn) {
+  clearCartBtn.addEventListener('click', () => {
+    if (cart.length === 0) return;
+    cart = [];
+    saveCart();
+    updateCartUI();
+    showToast('Корзина полностью очищена');
+  });
+}
 
 function updateCartUI() {
-  const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
-  cartBadge.textContent = totalCount;
+  if (cartBadge) {
+    const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
+    cartBadge.textContent = totalCount;
+  }
 
-  const totalSum = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
-  cartTotalPrice.textContent = formatPrice(totalSum);
+  if (cartTotalPrice) {
+    const totalSum = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
+    cartTotalPrice.textContent = formatPrice(totalSum);
+  }
 
-  checkoutBtn.disabled = cart.length === 0;
-  clearCartBtn.disabled = cart.length === 0;
+  if (checkoutBtn) checkoutBtn.disabled = cart.length === 0;
+  if (clearCartBtn) clearCartBtn.disabled = cart.length === 0;
+
+  if (!cartList) return;
 
   if (cart.length === 0) {
     cartList.innerHTML = '';
-    cartEmptyMsg.style.display = 'block';
+    if (cartEmptyMsg) cartEmptyMsg.style.display = 'block';
   } else {
-    cartEmptyMsg.style.display = 'none';
+    if (cartEmptyMsg) cartEmptyMsg.style.display = 'none';
     cartList.innerHTML = cart.map((i) => `
       <li class="cart-item">
         <img class="cart-item__img" src="${i.image}" alt="${i.title}">
@@ -334,69 +330,75 @@ function updateCartUI() {
 // Модальные окна
 // ==========================================================================
 function openModal(modal) {
+  if (!modal) return;
   modal.classList.add('is-active');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(modal) {
+  if (!modal) return;
   modal.classList.remove('is-active');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
-openCartBtn.addEventListener('click', () => openModal(cartModal));
-closeCartBtn.addEventListener('click', () => closeModal(cartModal));
-cartOverlay.addEventListener('click', () => closeModal(cartModal));
+if (openCartBtn) openCartBtn.addEventListener('click', () => openModal(cartModal));
+if (closeCartBtn) closeCartBtn.addEventListener('click', () => closeModal(cartModal));
+if (cartOverlay) cartOverlay.addEventListener('click', () => closeModal(cartModal));
 
-checkoutBtn.addEventListener('click', () => {
-  closeModal(cartModal);
-  openModal(orderModal);
-});
+if (checkoutBtn) {
+  checkoutBtn.addEventListener('click', () => {
+    closeModal(cartModal);
+    openModal(orderModal);
+  });
+}
 
-closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
-orderOverlay.addEventListener('click', () => closeModal(orderModal));
+if (closeOrderBtn) closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
+if (orderOverlay) orderOverlay.addEventListener('click', () => closeModal(orderModal));
 
 // ==========================================================================
-// Оформление заказа (строго по ТЗ)
+// Оформление заказа (по критериям ТЗ)
 // ==========================================================================
-orderForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+if (orderForm) {
+  orderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  const inputs = orderForm.querySelectorAll('.form-input');
-  let valid = true;
+    const inputs = orderForm.querySelectorAll('.form-input');
+    let valid = true;
 
-  inputs.forEach((input) => {
-    const parent = input.closest('.form-group');
-    if (!input.checkValidity()) {
-      parent.classList.add('has-error');
-      valid = false;
-    } else {
-      parent.classList.remove('has-error');
-    }
+    inputs.forEach((input) => {
+      const parent = input.closest('.form-group');
+      if (!input.checkValidity()) {
+        parent.classList.add('has-error');
+        valid = false;
+      } else {
+        parent.classList.remove('has-error');
+      }
+    });
+
+    if (!valid) return;
+
+    closeModal(orderModal);
+    orderForm.reset();
+
+    cart = [];
+    saveCart();
+    updateCartUI();
+
+    alert('Заказ создан!');
+    showToast('Заказ создан! Менеджер свяжется с вами.');
   });
 
-  if (!valid) return;
-
-  closeModal(orderModal);
-  orderForm.reset();
-
-  cart = [];
-  saveCart();
-  updateCartUI();
-
-  alert('Заказ создан!');
-  showToast('Заказ создан! Менеджер свяжется с вами для подтверждения 18+.');
-});
-
-orderForm.querySelectorAll('.form-input').forEach((input) => {
-  input.addEventListener('input', () => {
-    input.closest('.form-group').classList.remove('has-error');
+  orderForm.querySelectorAll('.form-input').forEach((input) => {
+    input.addEventListener('input', () => {
+      input.closest('.form-group').classList.remove('has-error');
+    });
   });
-});
+}
 
 // ==========================================================================
-// Фильтры и Поиск
+// Фильтры категорий и Живой поиск
 // ==========================================================================
 filterBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -407,14 +409,17 @@ filterBtns.forEach((btn) => {
   });
 });
 
-searchInput.addEventListener('input', (e) => {
-  searchQuery = e.target.value;
-  renderProducts();
-});
+if (searchInput) {
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    renderProducts();
+  });
+}
 
 // Toast
 let toastTimer;
 function showToast(msg) {
+  if (!toastEl) return;
   clearTimeout(toastTimer);
   toastEl.textContent = msg;
   toastEl.classList.add('is-show');
@@ -423,9 +428,17 @@ function showToast(msg) {
   }, 2500);
 }
 
-// Инициализация
-document.addEventListener('DOMContentLoaded', () => {
+// ==========================================================================
+// Запуск приложения
+// ==========================================================================
+function startApp() {
   checkAgeVerification();
   renderProducts();
   updateCartUI();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
