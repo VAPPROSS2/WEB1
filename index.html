@@ -15,8 +15,8 @@
       <h2>Вам уже исполнилось 18 лет?</h2>
       <p>Сайт содержит информацию о спиртных напитках и предназначен только для совершеннолетних.</p>
       <div class="age-modal__actions">
-        <button class="btn btn--primary" id="ageConfirmBtn" onclick="confirmAge()">Да, мне есть 18</button>
-        <button class="btn btn--outline" onclick="window.location.href='https://google.com'">Нет, мне меньше</button>
+        <button type="button" class="btn btn--primary" id="ageConfirmBtn" onclick="confirmAge()">Да, мне есть 18</button>
+        <button type="button" class="btn btn--outline" onclick="window.location.href='https://google.com'">Нет, мне меньше</button>
       </div>
     </div>
   </div>
@@ -29,32 +29,33 @@
         <span class="logo__text">Château & Barrel</span>
       </a>
 
-      <!-- Поиск по товарам -->
+      <!-- Живой поиск -->
       <div class="header__search">
         <input type="search" id="searchInput" class="search-input" placeholder="Поиск напитка...">
       </div>
 
-      <button class="cart-btn" id="openCartBtn" aria-label="Открыть корзину">
-        <span>Корзина</span>
+      <!-- Кнопка корзины -->
+      <button type="button" class="cart-btn" id="openCartBtn" onclick="openCartModal()" aria-label="Открыть корзину">
+        <span>🛒 Корзина</span>
         <span class="cart-badge" id="cartBadge">0</span>
       </button>
     </div>
   </header>
 
-  <!-- Основная часть -->
+  <!-- Основной контент -->
   <main class="main">
     <div class="container">
       
-      <!-- Панель фильтров категорий -->
+      <!-- Фильтры по категориям -->
       <nav class="categories-nav" aria-label="Категории товаров">
-        <button class="filter-btn active" data-category="all">Все напитки</button>
-        <button class="filter-btn" data-category="wine">Вино</button>
-        <button class="filter-btn" data-category="whiskey">Виски</button>
-        <button class="filter-btn" data-category="champagne">Шампанское</button>
-        <button class="filter-btn" data-category="cognac">Коньяк</button>
+        <button type="button" class="filter-btn active" data-category="all">Все напитки</button>
+        <button type="button" class="filter-btn" data-category="wine">Вино</button>
+        <button type="button" class="filter-btn" data-category="whiskey">Виски</button>
+        <button type="button" class="filter-btn" data-category="champagne">Шампанское</button>
+        <button type="button" class="filter-btn" data-category="cognac">Коньяк</button>
       </nav>
 
-      <!-- Каталог товаров -->
+      <!-- Каталог напитков -->
       <section class="catalog-section">
         <div class="products-grid" id="productsGrid"></div>
         <div class="no-products" id="noProducts" style="display: none;">
@@ -75,11 +76,11 @@
 
   <!-- Модальное окно: Корзина -->
   <div class="modal" id="cartModal" aria-hidden="true" role="dialog">
-    <div class="modal__overlay" id="cartOverlay"></div>
+    <div class="modal__overlay" onclick="closeCartModal()"></div>
     <div class="modal__dialog">
       <header class="modal__header">
         <h2 class="modal__title">Ваша корзина</h2>
-        <button class="modal__close" id="closeCartBtn" aria-label="Закрыть">&times;</button>
+        <button type="button" class="modal__close" onclick="closeCartModal()" aria-label="Закрыть">&times;</button>
       </header>
 
       <div class="modal__body">
@@ -94,20 +95,20 @@
         </div>
         
         <div class="modal__footer-actions">
-          <button class="btn btn--danger" id="clearCartBtn">Очистить</button>
-          <button class="btn btn--primary" id="checkoutBtn" disabled>Оформить заказ</button>
+          <button type="button" class="btn btn--danger" id="clearCartBtn" onclick="clearCart()">Очистить</button>
+          <button type="button" class="btn btn--primary" id="checkoutBtn" onclick="goToCheckout()" disabled>Оформить заказ</button>
         </div>
       </footer>
     </div>
   </div>
 
-  <!-- Модальное окно: Оформление заказа (Требования ТЗ строго соблюдены) -->
+  <!-- Модальное окно: Оформление заказа (Обязательные поля по ТЗ) -->
   <div class="modal" id="orderModal" aria-hidden="true" role="dialog">
-    <div class="modal__overlay" id="orderOverlay"></div>
+    <div class="modal__overlay" onclick="closeOrderModal()"></div>
     <div class="modal__dialog">
       <header class="modal__header">
         <h2 class="modal__title">Оформление заказа</h2>
-        <button class="modal__close" id="closeOrderBtn" aria-label="Закрыть">&times;</button>
+        <button type="button" class="modal__close" onclick="closeOrderModal()" aria-label="Закрыть">&times;</button>
       </header>
 
       <div class="modal__body">
