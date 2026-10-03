@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЭкоМаркет — Интернет-магазин гаджетов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Шапка сайта -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="#" class="logo">TechStore</a>
+      
+      <button class="cart-btn" id="openCartBtn" aria-label="Открыть корзину">
+        🛒 Корзина
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Основной контент -->
+  <main class="main">
+    <div class="container">
+      <section class="catalog-section">
+        <h1 class="section-title">Каталог товаров</h1>
+        <!-- Контейнер для динамической отрисовки карточек -->
+        <div class="products-grid" id="productsGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Подвал сайта -->
+  <footer class="footer">
+    <div class="container footer__container">
+      <p>&copy; 2026 TechStore. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Модальное окно: Корзина -->
+  <div class="modal" id="cartModal" aria-hidden="true" role="dialog">
+    <div class="modal__overlay" id="cartOverlay"></div>
+    <div class="modal__dialog">
+      <header class="modal__header">
+        <h2 class="modal__title">Корзина покупок</h2>
+        <button class="modal__close" id="closeCartBtn" aria-label="Закрыть">&times;</button>
+      </header>
+
+      <div class="modal__body">
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="cart-empty-message" id="cartEmptyMsg">Ваша корзина пуста</div>
+      </div>
+
+      <footer class="modal__footer">
+        <div class="cart-total">
+          <span>Итого к оплате:</span>
+          <span class="cart-total-price" id="cartTotalPrice">0 ₽</span>
+        </div>
+        <button class="btn btn--primary btn--block" id="checkoutBtn" disabled>
+          Оформить заказ
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Оформление заказа -->
+  <div class="modal" id="orderModal" aria-hidden="true" role="dialog">
+    <div class="modal__overlay" id="orderOverlay"></div>
+    <div class="modal__dialog">
+      <header class="modal__header">
+        <h2 class="modal__title">Оформление заказа</h2>
+        <button class="modal__close" id="closeOrderBtn" aria-label="Закрыть">&times;</button>
+      </header>
+
+      <div class="modal__body">
+        <form class="order-form" id="orderForm" novalidate>
+          <div class="form-group">
+            <label for="firstName" class="form-label">Имя *</label>
+            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Иван" required>
+            <span class="form-error">Пожалуйста, укажите имя</span>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="form-label">Фамилия *</label>
+            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Иванов" required>
+            <span class="form-error">Пожалуйста, укажите фамилию</span>
+          </div>
+
+          <div class="form-group">
+            <label for="address" class="form-label">Адрес доставки *</label>
+            <input type="text" id="address" name="address" class="form-input" placeholder="г. Москва, ул. Ленина, д. 10, кв. 5" required>
+            <span class="form-error">Пожалуйста, укажите адрес доставки</span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone" class="form-label">Контактный номер телефона *</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+7 (999) 000-00-00" pattern="[\+]?[0-9\s\-\(\)]{10,18}" required>
+            <span class="form-error">Введите корректный номер телефона</span>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Создать заказ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Всплывающее уведомление (Toast) -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
