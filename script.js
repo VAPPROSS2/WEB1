@@ -118,38 +118,6 @@ const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=700&q=80'
   }
 ];
-2. Улучшение отображения бутылок в style.css
-Чтобы фотографии бутылок не обрезались по краям и смотрелись как на витрине дорогого бутика, обновите стили контейнера картинки в style.css:
-Найдите блок .product-card__image-wrap и .product-card__img и замените их на:
-code
-CSS
-.product-card__image-wrap {
-  width: 100%;
-  padding-top: 85%; /* Пропорция для бутылок */
-  position: relative;
-  background-color: #0d0d10;
-  overflow: hidden;
-}
-
-.product-card__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 0.4s ease;
-}
-
-/* Эффект легкого приближения при наведении мыши */
-.product-card:hover .product-card__img {
-  transform: scale(1.06);
-}
-// Состояние фильтрации и корзины
-let cart = loadCart();
-let currentCategory = 'all';
-let searchQuery = '';
 
 // DOM элементы
 const productsGrid = document.getElementById('productsGrid');
