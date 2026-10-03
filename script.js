@@ -9,7 +9,7 @@ const PRODUCTS = [
     meta: 'Франция, Бордо • 13.5% об.',
     price: 48500,
     description: 'Легендарное красное сухое вино с шелковистыми танинами и нотами черной смородины.',
-    image: 'https://oldwineclub.ru/vino-chateau-margaux-1956-goda-kupit.htm'
+    image: 'https://oldwineclub.ru/assets/images/vine/margaux/1956-margaux-top.jpg'
   },
   {
     id: 2,
