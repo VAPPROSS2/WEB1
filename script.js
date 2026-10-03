@@ -1,58 +1,74 @@
 'use strict';
 
-// 1. Исходные данные каталога товаров
+// 1. Каталог благородных напитков
 const PRODUCTS = [
   {
     id: 1,
-    title: 'Беспроводные наушники Pro',
-    price: 9990,
-    description: 'Активное шумоподавление, до 30 часов автономной работы и чистый звук.',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80'
+    title: 'Château Margaux Grand Cru',
+    category: 'wine',
+    meta: 'Франция, Бордо • 13.5% об.',
+    price: 48500,
+    description: 'Легендарное красное сухое вино с шелковистыми танинами и нотами черной смородины.',
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&q=80'
   },
   {
     id: 2,
-    title: 'Смарт-часы FitPulse',
-    price: 14500,
-    description: 'AMOLED-экран, датчик пульса, мониторинг сна и GPS-трекинг.',
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80'
+    title: 'The Macallan 12 Years Double Cask',
+    category: 'whiskey',
+    meta: 'Шотландия, Спейсайд • 40.0% об.',
+    price: 11200,
+    description: 'Односолодовый виски, выдержанный в бочках из американского и европейского дуба из-под хереса.',
+    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=500&q=80'
   },
   {
     id: 3,
-    title: 'Механическая клавиатура RGB',
-    price: 6800,
-    description: 'Надежные переключатели Red Switches, эргономичный корпус и кастомная подсветка.',
-    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80'
+    title: 'Dom Pérignon Vintage Brut',
+    category: 'champagne',
+    meta: 'Франция, Шампань • 12.5% об.',
+    price: 34900,
+    description: 'Культовое винтажное шампанское с минеральным характером, нотами бриоши и белых цветов.',
+    image: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=500&q=80'
   },
   {
     id: 4,
-    title: 'Беспроводная мышь Master',
-    price: 4200,
-    description: 'Высокоточный сенсор 4000 DPI, тихие клики и подключение к трем устройствам.',
-    image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80'
+    title: 'Hennessy X.O Cognac',
+    category: 'cognac',
+    meta: 'Франция, Коньяк • 40.0% об.',
+    price: 26500,
+    description: 'Гармоничный ассамбляж более 100 коньячных спиртов с нотами засахаренных фруктов и дикого перца.',
+    image: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=500&q=80'
   },
   {
     id: 5,
-    title: 'Портативная колонка Boom',
-    price: 5900,
-    description: 'Мощный бас, защита от воды IPX7 и воспроизведение до 15 часов.',
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80'
+    title: 'Barolo DOCG Pio Cesare',
+    category: 'wine',
+    meta: 'Италия, Пьемонт • 14.5% об.',
+    price: 9800,
+    description: 'Классическое итальянское «вино королей» из винограда Неббиоло с ароматами трюфелей и вишни.',
+    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=500&q=80'
   },
   {
     id: 6,
-    title: 'Внешний аккумулятор 20000 mAh',
-    price: 2990,
-    description: 'Быстрая зарядка Power Delivery 65W для смартфонов и ноутбуков.',
-    image: 'https://images.unsplash.com/photo-1609592426860-26f63458ff6d?w=500&q=80'
+    title: 'Lagavulin 16 Years Old',
+    category: 'whiskey',
+    meta: 'Шотландия, Айла • 43.0% об.',
+    price: 14800,
+    description: 'Интенсивный торфяной виски с морским дымом, йодистыми нотами и богатым сладковатым послевкусием.',
+    image: 'https://images.unsplash.com/photo-1582819509241-913417cba4b4?w=500&q=80'
   }
 ];
 
-const STORAGE_KEY = 'store_cart_data';
+const STORAGE_KEY = 'spirits_store_cart';
+const AGE_STORAGE_KEY = 'spirits_age_confirmed';
 
-// 2. Состояние приложения (Корзина)
+// Состояние фильтрации и корзины
 let cart = loadCart();
+let currentCategory = 'all';
+let searchQuery = '';
 
 // DOM элементы
 const productsGrid = document.getElementById('productsGrid');
+const noProducts = document.getElementById('noProducts');
 const cartBadge = document.getElementById('cartBadge');
 const cartModal = document.getElementById('cartModal');
 const openCartBtn = document.getElementById('openCartBtn');
@@ -62,6 +78,7 @@ const cartList = document.getElementById('cartList');
 const cartEmptyMsg = document.getElementById('cartEmptyMsg');
 const cartTotalPrice = document.getElementById('cartTotalPrice');
 const checkoutBtn = document.getElementById('checkoutBtn');
+const clearCartBtn = document.getElementById('clearCartBtn');
 
 const orderModal = document.getElementById('orderModal');
 const closeOrderBtn = document.getElementById('closeOrderBtn');
@@ -69,18 +86,36 @@ const orderOverlay = document.getElementById('orderOverlay');
 const orderForm = document.getElementById('orderForm');
 const toastEl = document.getElementById('toast');
 
-// Форматирование цены (например, 9 990 ₽)
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+const ageModal = document.getElementById('ageModal');
+const ageConfirmBtn = document.getElementById('ageConfirmBtn');
+
 const formatPrice = (price) => `${price.toLocaleString('ru-RU')} ₽`;
 
 // ==========================================================================
-// LocalStorage
+// 18+ Верификация возраста
+// ==========================================================================
+function checkAgeVerification() {
+  if (localStorage.getItem(AGE_STORAGE_KEY) === 'true') {
+    ageModal.classList.add('is-hidden');
+  }
+}
+
+ageConfirmBtn.addEventListener('click', () => {
+  localStorage.setItem(AGE_STORAGE_KEY, 'true');
+  ageModal.classList.add('is-hidden');
+});
+
+// ==========================================================================
+// LocalStorage Корзины
 // ==========================================================================
 function loadCart() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.error('Ошибка загрузки корзины:', e);
     return [];
   }
 }
@@ -89,21 +124,39 @@ function saveCart() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
   } catch (e) {
-    console.error('Ошибка сохранения корзины:', e);
+    console.error('Ошибка сохранения:', e);
   }
 }
 
 // ==========================================================================
-// Отрисовка каталога товаров
+// Отрисовка товаров (с учетом фильтра и поиска)
 // ==========================================================================
 function renderProducts() {
-  productsGrid.innerHTML = PRODUCTS.map((item) => `
+  const filtered = PRODUCTS.filter((item) => {
+    const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          item.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    productsGrid.innerHTML = '';
+    noProducts.style.display = 'block';
+    return;
+  }
+
+  noProducts.style.display = 'none';
+  productsGrid.innerHTML = filtered.map((item) => `
     <article class="product-card">
       <div class="product-card__image-wrap">
         <img class="product-card__img" src="${item.image}" alt="${item.title}" loading="lazy">
+        <div class="product-card__badges">
+          <span class="badge">${item.category.toUpperCase()}</span>
+        </div>
       </div>
       <div class="product-card__body">
         <h2 class="product-card__title">${item.title}</h2>
+        <div class="product-card__meta">${item.meta}</div>
         <p class="product-card__description">${item.description}</p>
         <div class="product-card__footer">
           <span class="product-card__price">${formatPrice(item.price)}</span>
@@ -117,37 +170,35 @@ function renderProducts() {
 }
 
 // ==========================================================================
-// Логика корзины (Добавление, изменение, удаление)
+// Логика корзины (Добавление, изменение, удаление, очистка)
 // ==========================================================================
 window.addToCart = function(productId) {
-  const existingItem = cart.find((item) => item.id === productId);
+  const existing = cart.find((i) => i.id === productId);
 
-  if (existingItem) {
-    existingItem.quantity += 1;
+  if (existing) {
+    existing.quantity += 1;
   } else {
-    const product = PRODUCTS.find((p) => p.id === productId);
-    if (!product) return;
-
+    const prod = PRODUCTS.find((p) => p.id === productId);
+    if (!prod) return;
     cart.push({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      image: product.image,
+      id: prod.id,
+      title: prod.title,
+      price: prod.price,
+      image: prod.image,
       quantity: 1
     });
   }
 
   saveCart();
   updateCartUI();
-  showToast('Товар добавлен в корзину');
+  showToast('Бутылка добавлена в корзину');
 };
 
 window.changeQuantity = function(productId, delta) {
-  const item = cart.find((p) => p.id === productId);
+  const item = cart.find((i) => i.id === productId);
   if (!item) return;
 
   item.quantity += delta;
-
   if (item.quantity <= 0) {
     removeFromCart(productId);
     return;
@@ -158,113 +209,112 @@ window.changeQuantity = function(productId, delta) {
 };
 
 window.removeFromCart = function(productId) {
-  cart = cart.filter((item) => item.id !== productId);
+  cart = cart.filter((i) => i.id !== productId);
   saveCart();
   updateCartUI();
 };
 
+// Новая функция: полная очистка корзины
+clearCartBtn.addEventListener('click', () => {
+  if (cart.length === 0) return;
+  cart = [];
+  saveCart();
+  updateCartUI();
+  showToast('Корзина полностью очищена');
+});
+
 function updateCartUI() {
-  // 1. Бейдж количества
-  const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
   cartBadge.textContent = totalCount;
 
-  // 2. Итоговая сумма
-  const totalSum = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalSum = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
   cartTotalPrice.textContent = formatPrice(totalSum);
 
-  // 3. Состояние кнопки "Оформить"
   checkoutBtn.disabled = cart.length === 0;
+  clearCartBtn.disabled = cart.length === 0;
 
-  // 4. Отрисовка списка товаров
   if (cart.length === 0) {
     cartList.innerHTML = '';
     cartEmptyMsg.style.display = 'block';
   } else {
     cartEmptyMsg.style.display = 'none';
-    cartList.innerHTML = cart.map((item) => `
+    cartList.innerHTML = cart.map((i) => `
       <li class="cart-item">
-        <img class="cart-item__img" src="${item.image}" alt="${item.title}">
+        <img class="cart-item__img" src="${i.image}" alt="${i.title}">
         <div class="cart-item__info">
-          <div class="cart-item__title">${item.title}</div>
-          <div class="cart-item__price">${formatPrice(item.price)}</div>
+          <div class="cart-item__title">${i.title}</div>
+          <div class="cart-item__price">${formatPrice(i.price)}</div>
         </div>
         <div class="cart-item__controls">
-          <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)" aria-label="Уменьшить">-</button>
-          <span class="quantity-value">${item.quantity}</span>
-          <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)" aria-label="Увеличить">+</button>
+          <button class="quantity-btn" onclick="changeQuantity(${i.id}, -1)">-</button>
+          <span class="quantity-value">${i.quantity}</span>
+          <button class="quantity-btn" onclick="changeQuantity(${i.id}, 1)">+</button>
         </div>
-        <button class="cart-item__remove" onclick="removeFromCart(${item.id})" title="Удалить товар">&times;</button>
+        <button class="cart-item__remove" onclick="removeFromCart(${i.id})" title="Удалить">&times;</button>
       </li>
     `).join('');
   }
 }
 
 // ==========================================================================
-// Управление модальными окнами
+// Модальные окна
 // ==========================================================================
-function openModal(modalEl) {
-  modalEl.classList.add('is-active');
-  modalEl.setAttribute('aria-hidden', 'false');
+function openModal(modal) {
+  modal.classList.add('is-active');
+  modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
 
-function closeModal(modalEl) {
-  modalEl.classList.remove('is-active');
-  modalEl.setAttribute('aria-hidden', 'true');
+function closeModal(modal) {
+  modal.classList.remove('is-active');
+  modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
-// События корзины
 openCartBtn.addEventListener('click', () => openModal(cartModal));
 closeCartBtn.addEventListener('click', () => closeModal(cartModal));
 cartOverlay.addEventListener('click', () => closeModal(cartModal));
 
-// Переход из корзины в окно оформления
 checkoutBtn.addEventListener('click', () => {
   closeModal(cartModal);
   openModal(orderModal);
 });
 
-// Закрытие модального окна заказа
 closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
 orderOverlay.addEventListener('click', () => closeModal(orderModal));
 
 // ==========================================================================
-// Валидация и отправка формы
+// Оформление заказа (строго по ТЗ)
 // ==========================================================================
 orderForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const inputs = orderForm.querySelectorAll('.form-input');
-  let isValid = true;
+  let valid = true;
 
   inputs.forEach((input) => {
     const parent = input.closest('.form-group');
     if (!input.checkValidity()) {
       parent.classList.add('has-error');
-      isValid = false;
+      valid = false;
     } else {
       parent.classList.remove('has-error');
     }
   });
 
-  if (!isValid) return;
+  if (!valid) return;
 
-  // Если всё заполнено корректно:
   closeModal(orderModal);
   orderForm.reset();
 
-  // Очистка корзины
   cart = [];
   saveCart();
   updateCartUI();
 
-  // Сообщение по ТЗ
   alert('Заказ создан!');
-  showToast('Заказ успешно создан!', 'success');
+  showToast('Заказ создан! Менеджер свяжется с вами для подтверждения 18+.');
 });
 
-// Снятие ошибки при вводе
 orderForm.querySelectorAll('.form-input').forEach((input) => {
   input.addEventListener('input', () => {
     input.closest('.form-group').classList.remove('has-error');
@@ -272,24 +322,36 @@ orderForm.querySelectorAll('.form-input').forEach((input) => {
 });
 
 // ==========================================================================
-// Toast-уведомления
+// Фильтры и Поиск
 // ==========================================================================
-let toastTimeout;
-function showToast(message, type = 'normal') {
-  clearTimeout(toastTimeout);
-  toastEl.textContent = message;
-  toastEl.className = 'toast is-show';
-  if (type === 'success') toastEl.classList.add('toast--success');
+filterBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCategory = btn.dataset.category;
+    renderProducts();
+  });
+});
 
-  toastTimeout = setTimeout(() => {
+searchInput.addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  renderProducts();
+});
+
+// Toast
+let toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  toastEl.textContent = msg;
+  toastEl.classList.add('is-show');
+  toastTimer = setTimeout(() => {
     toastEl.classList.remove('is-show');
   }, 2500);
 }
 
-// ==========================================================================
-// Инициализация приложения
-// ==========================================================================
+// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
+  checkAgeVerification();
   renderProducts();
   updateCartUI();
 });
