@@ -3,37 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ЭкоМаркет — Интернет-магазин гаджетов</title>
+  <title>Château & Barrel — Бутик благородных напитков</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Окно проверки возраста 18+ -->
+  <div class="age-modal" id="ageModal">
+    <div class="age-modal__content">
+      <span class="age-badge">18+</span>
+      <h2>Вам уже исполнилось 18 лет?</h2>
+      <p>Сайт содержит информацию о спиртных напитках и предназначен только для совершеннолетних.</p>
+      <div class="age-modal__actions">
+        <button class="btn btn--primary" id="ageConfirmBtn">Да, мне есть 18</button>
+        <button class="btn btn--outline" onclick="window.location.href='https://google.com'">Нет, мне меньше</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Шапка сайта -->
   <header class="header">
     <div class="container header__container">
-      <a href="#" class="logo">TechStore</a>
-      
+      <a href="#" class="logo">
+        <span class="logo__icon">🍷</span>
+        <span class="logo__text">Château & Barrel</span>
+      </a>
+
+      <!-- Поиск по товарам -->
+      <div class="header__search">
+        <input type="search" id="searchInput" class="search-input" placeholder="Поиск напитка...">
+      </div>
+
       <button class="cart-btn" id="openCartBtn" aria-label="Открыть корзину">
-        🛒 Корзина
+        <span>Корзина</span>
         <span class="cart-badge" id="cartBadge">0</span>
       </button>
     </div>
   </header>
 
-  <!-- Основной контент -->
+  <!-- Основная часть -->
   <main class="main">
     <div class="container">
+      
+      <!-- Панель фильтров категорий -->
+      <nav class="categories-nav" aria-label="Категории товаров">
+        <button class="filter-btn active" data-category="all">Все напитки</button>
+        <button class="filter-btn" data-category="wine">Вино</button>
+        <button class="filter-btn" data-category="whiskey">Виски</button>
+        <button class="filter-btn" data-category="champagne">Шампанское</button>
+        <button class="filter-btn" data-category="cognac">Коньяк</button>
+      </nav>
+
+      <!-- Каталог товаров -->
       <section class="catalog-section">
-        <h1 class="section-title">Каталог товаров</h1>
-        <!-- Контейнер для динамической отрисовки карточек -->
         <div class="products-grid" id="productsGrid"></div>
+        <div class="no-products" id="noProducts" style="display: none;">
+          Напитки по вашему запросу не найдены.
+        </div>
       </section>
+
     </div>
   </main>
 
   <!-- Подвал сайта -->
   <footer class="footer">
     <div class="container footer__container">
-      <p>&copy; 2026 TechStore. Все права защищены.</p>
+      <p class="footer__warning">Чрезмерное употребление алкоголя вредит вашему здоровью. Продажа лицам до 18 лет запрещена.</p>
+      <p class="footer__copy">&copy; 2026 Château & Barrel. Все права защищены.</p>
     </div>
   </footer>
 
@@ -42,28 +78,30 @@
     <div class="modal__overlay" id="cartOverlay"></div>
     <div class="modal__dialog">
       <header class="modal__header">
-        <h2 class="modal__title">Корзина покупок</h2>
+        <h2 class="modal__title">Ваша корзина</h2>
         <button class="modal__close" id="closeCartBtn" aria-label="Закрыть">&times;</button>
       </header>
 
       <div class="modal__body">
         <ul class="cart-list" id="cartList"></ul>
-        <div class="cart-empty-message" id="cartEmptyMsg">Ваша корзина пуста</div>
+        <div class="cart-empty-message" id="cartEmptyMsg">Ваша корзина пока пуста</div>
       </div>
 
       <footer class="modal__footer">
         <div class="cart-total">
-          <span>Итого к оплате:</span>
+          <span>Сумма заказа:</span>
           <span class="cart-total-price" id="cartTotalPrice">0 ₽</span>
         </div>
-        <button class="btn btn--primary btn--block" id="checkoutBtn" disabled>
-          Оформить заказ
-        </button>
+        
+        <div class="modal__footer-actions">
+          <button class="btn btn--danger" id="clearCartBtn">Очистить</button>
+          <button class="btn btn--primary" id="checkoutBtn" disabled>Оформить заказ</button>
+        </div>
       </footer>
     </div>
   </div>
 
-  <!-- Модальное окно: Оформление заказа -->
+  <!-- Модальное окно: Оформление заказа (Требования ТЗ строго соблюдены) -->
   <div class="modal" id="orderModal" aria-hidden="true" role="dialog">
     <div class="modal__overlay" id="orderOverlay"></div>
     <div class="modal__dialog">
@@ -76,19 +114,19 @@
         <form class="order-form" id="orderForm" novalidate>
           <div class="form-group">
             <label for="firstName" class="form-label">Имя *</label>
-            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Иван" required>
+            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Александр" required>
             <span class="form-error">Пожалуйста, укажите имя</span>
           </div>
 
           <div class="form-group">
             <label for="lastName" class="form-label">Фамилия *</label>
-            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Иванов" required>
+            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Смирнов" required>
             <span class="form-error">Пожалуйста, укажите фамилию</span>
           </div>
 
           <div class="form-group">
             <label for="address" class="form-label">Адрес доставки *</label>
-            <input type="text" id="address" name="address" class="form-input" placeholder="г. Москва, ул. Ленина, д. 10, кв. 5" required>
+            <input type="text" id="address" name="address" class="form-input" placeholder="г. Москва, Тверская ул., д. 12, кв. 45" required>
             <span class="form-error">Пожалуйста, укажите адрес доставки</span>
           </div>
 
