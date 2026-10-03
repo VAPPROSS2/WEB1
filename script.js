@@ -133,7 +133,13 @@ const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=700&q=80'
   }
 ];
+const STORAGE_KEY = 'spirits_store_cart';
+const AGE_STORAGE_KEY = 'spirits_age_confirmed';
 
+// Состояние фильтрации и корзины
+let cart = loadCart();
+let currentCategory = 'all';
+let searchQuery = '';
 // DOM элементы
 const productsGrid = document.getElementById('productsGrid');
 const noProducts = document.getElementById('noProducts');
