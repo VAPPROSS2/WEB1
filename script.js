@@ -2,65 +2,150 @@
 
 // 1. Каталог благородных напитков
 const PRODUCTS = [
+  // ================= ВИНА =================
   {
     id: 1,
     title: 'Château Margaux Grand Cru',
     category: 'wine',
-    meta: 'Франция, Бордо • 13.5% об.',
+    meta: 'Франция, Бордо • 13.5% об. • 0.75 л',
     price: 48500,
-    description: 'Легендарное красное сухое вино с шелковистыми танинами и нотами черной смородины.',
-    image: 'https://oldwineclub.ru/assets/images/vine/margaux/1956-margaux-top.jpg'
+    description: 'Легендарное красное сухое вино высшей категории. Богатый букет с нотами черной смородины, кедра и фиалок.',
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80'
   },
   {
     id: 2,
-    title: 'The Macallan 12 Years Double Cask',
-    category: 'whiskey',
-    meta: 'Шотландия, Спейсайд • 40.0% об.',
-    price: 11200,
-    description: 'Односолодовый виски, выдержанный в бочках из американского и европейского дуба из-под хереса.',
-    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=500&q=80'
+    title: 'Chablis Premier Cru Domaine',
+    category: 'wine',
+    meta: 'Франция, Бургундия • 12.5% об. • 0.75 л',
+    price: 8900,
+    description: 'Элегантное белое сухое вино из винограда Шардоне с кристальной минеральностью, тонами цитрусов и белых цветов.',
+    image: 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=700&q=80'
   },
   {
     id: 3,
-    title: 'Dom Pérignon Vintage Brut',
-    category: 'champagne',
-    meta: 'Франция, Шампань • 12.5% об.',
-    price: 34900,
-    description: 'Культовое винтажное шампанское с минеральным характером, нотами бриоши и белых цветов.',
-    image: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=500&q=80'
+    title: 'Tignanello Toscana Antinori',
+    category: 'wine',
+    meta: 'Италия, Тоскана • 14.0% об. • 0.75 л',
+    price: 21900,
+    description: 'Культовое супертосканское вино на основе Санджовезе и Каберне Совиньон. Ноты спелой вишни, табака и темного шоколада.',
+    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=700&q=80'
   },
+
+  // ================= ВИСКИ =================
   {
     id: 4,
-    title: 'Hennessy X.O Cognac',
-    category: 'cognac',
-    meta: 'Франция, Коньяк • 40.0% об.',
-    price: 26500,
-    description: 'Гармоничный ассамбляж более 100 коньячных спиртов с нотами засахаренных фруктов и дикого перца.',
-    image: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=500&q=80'
+    title: 'The Macallan 12 Years Double Cask',
+    category: 'whiskey',
+    meta: 'Шотландия, Спейсайд • 40.0% об. • 0.7 л',
+    price: 11500,
+    description: 'Сингл молт, выдержанный в бочках из американского и европейского дуба из-под хереса Oloroso. Ноты ириса и цукатов.',
+    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=700&q=80'
   },
   {
     id: 5,
-    title: 'Barolo DOCG Pio Cesare',
-    category: 'wine',
-    meta: 'Италия, Пьемонт • 14.5% об.',
-    price: 9800,
-    description: 'Классическое итальянское «вино королей» из винограда Неббиоло с ароматами трюфелей и вишни.',
-    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=500&q=80'
+    title: 'Lagavulin 16 Years Old Single Malt',
+    category: 'whiskey',
+    meta: 'Шотландия, Айла • 43.0% об. • 0.7 л',
+    price: 14800,
+    description: 'Один из самых знаменитых торфяных виски мира. Глубокий аромат кострового дыма, морских водорослей и сухофруктов.',
+    image: 'https://images.unsplash.com/photo-1582819509241-913417cba4b4?w=700&q=80'
   },
   {
     id: 6,
-    title: 'Lagavulin 16 Years Old',
+    title: 'Jameson Black Barrel Triple Distilled',
     category: 'whiskey',
-    meta: 'Шотландия, Айла • 43.0% об.',
-    price: 14800,
-    description: 'Интенсивный торфяной виски с морским дымом, йодистыми нотами и богатым сладковатым послевкусием.',
-    image: 'https://images.unsplash.com/photo-1582819509241-913417cba4b4?w=500&q=80'
+    meta: 'Ирландия, Корк • 40.0% об. • 0.7 л',
+    price: 4990,
+    description: 'Ирландский бленд тройной дистилляции, дозревающий в дважды обожженных бочках из-под бурбона. Бархатистый ванильный вкус.',
+    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=700&q=80'
+  },
+
+  // ================= ШАМПАНСКОЕ =================
+  {
+    id: 7,
+    title: 'Dom Pérignon Vintage Brut',
+    category: 'champagne',
+    meta: 'Франция, Шампань • 12.5% об. • 0.75 л',
+    price: 34900,
+    description: 'Винтажное премиальное шампанское. Тонкий перляж, оттенки бриоши, поджаренного миндаля и свежих белых персиков.',
+    image: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=700&q=80'
+  },
+  {
+    id: 8,
+    title: 'Moët & Chandon Impérial Brut',
+    category: 'champagne',
+    meta: 'Франция, Эперне • 12.0% об. • 0.75 л',
+    price: 8900,
+    description: 'Эталон классического французского шампанского. Яркий свежий фруктовый букет с тонами зеленых яблок и цитрусовых.',
+    image: 'https://images.unsplash.com/photo-1580657274234-7339717f4541?w=700&q=80'
+  },
+  {
+    id: 9,
+    title: 'Veuve Clicquot Yellow Label Brut',
+    category: 'champagne',
+    meta: 'Франция, Реймс • 12.0% об. • 0.75 л',
+    price: 9400,
+    description: 'Знаменитое шампанское «Вдова Клико». Доминирующий сорт Пино Нуар придает напитку выразительную структуру и мощь.',
+    image: 'https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?w=700&q=80'
+  },
+
+  // ================= КОНЬЯК =================
+  {
+    id: 10,
+    title: 'Hennessy X.O Extra Old',
+    category: 'cognac',
+    meta: 'Франция, Коньяк • 40.0% об. • 0.7 л',
+    price: 27900,
+    description: 'Оригинальный коньяк класса XO. Ассамбляж сотни зрелых спиртов с нотами засахаренных фруктов, кожи и специй.',
+    image: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=700&q=80'
+  },
+  {
+    id: 11,
+    title: 'Rémy Martin V.S.O.P Fine Champagne',
+    category: 'cognac',
+    meta: 'Франция, Коньяк • 40.0% об. • 0.7 л',
+    price: 7600,
+    description: 'Создан исключительно из винограда Гранд и Пти Шампань. Округлый вкус с оттенками спелых абрикосов, ванили и лакрицы.',
+    image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=700&q=80'
+  },
+  {
+    id: 12,
+    title: 'Courvoisier X.O Imperial',
+    category: 'cognac',
+    meta: 'Франция, Жарнак • 40.0% об. • 0.7 л',
+    price: 24500,
+    description: 'Императорский коньяк с бархатным насыщенным вкусом, нюансами крем-брюле, апельсинового джема и благородного ириса.',
+    image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=700&q=80'
   }
 ];
+2. Улучшение отображения бутылок в style.css
+Чтобы фотографии бутылок не обрезались по краям и смотрелись как на витрине дорогого бутика, обновите стили контейнера картинки в style.css:
+Найдите блок .product-card__image-wrap и .product-card__img и замените их на:
+code
+CSS
+.product-card__image-wrap {
+  width: 100%;
+  padding-top: 85%; /* Пропорция для бутылок */
+  position: relative;
+  background-color: #0d0d10;
+  overflow: hidden;
+}
 
-const STORAGE_KEY = 'spirits_store_cart';
-const AGE_STORAGE_KEY = 'spirits_age_confirmed';
+.product-card__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
 
+/* Эффект легкого приближения при наведении мыши */
+.product-card:hover .product-card__img {
+  transform: scale(1.06);
+}
 // Состояние фильтрации и корзины
 let cart = loadCart();
 let currentCategory = 'all';
