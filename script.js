@@ -115,19 +115,20 @@ const PRODUCTS = [
     meta: 'Франция, Жарнак • 40.0% об. • 0.7 л',
     price: 24500,
     description: 'Императорский коньяк с бархатным насыщенным вкусом, нюансами крем-брюле, апельсинового джема и благородного ириса.',
-    image: ''v12.jpg'
+    image: 'v12.jpg'
   }
 ];
 
 // Ключи LocalStorage
-const STORAGE_KEY = 'spirits_store_cart_v1';
-const AGE_STORAGE_KEY = 'spirits_age_confirmed_v1';
+const STORAGE_KEY = 'spirits_store_cart_v3';
+const AGE_STORAGE_KEY = 'spirits_age_confirmed_v3';
 
 // Безопасная загрузка корзины
 function loadCart() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
     return [];
   }
@@ -146,7 +147,6 @@ let cart = loadCart();
 let currentCategory = 'all';
 let searchQuery = '';
 
-// Вспомогательная функция форматирования цены
 const formatPrice = (price) => `${price.toLocaleString('ru-RU')} ₽`;
 
 // ==========================================================================
@@ -215,12 +215,13 @@ function renderProducts() {
 // Логика корзины (Добавление, пересчет, удаление, очистка)
 // ==========================================================================
 window.addToCart = function(productId) {
-  const existing = cart.find((i) => i.id === productId);
+  productId = Number(productId);
+  const existing = cart.find((i) => Number(i.id) === productId);
 
   if (existing) {
     existing.quantity += 1;
   } else {
-    const prod = PRODUCTS.find((p) => p.id === productId);
+    const prod = PRODUCTS.find((p) => Number(p.id) === productId);
     if (!prod) return;
     cart.push({
       id: prod.id,
@@ -237,7 +238,8 @@ window.addToCart = function(productId) {
 };
 
 window.changeQuantity = function(productId, delta) {
-  const item = cart.find((i) => i.id === productId);
+  productId = Number(productId);
+  const item = cart.find((i) => Number(i.id) === productId);
   if (!item) return;
 
   item.quantity += delta;
@@ -251,7 +253,8 @@ window.changeQuantity = function(productId, delta) {
 };
 
 window.removeFromCart = function(productId) {
-  cart = cart.filter((i) => i.id !== productId);
+  productId = Number(productId);
+  cart = cart.filter((i) => Number(i.id) !== productId);
   saveCart();
   updateCartUI();
 };
@@ -392,7 +395,7 @@ document.addEventListener('input', (e) => {
   }
 });
 
-// Клик по фильтрам категорий
+// Переключение фильтров категорий
 document.addEventListener('click', (e) => {
   if (e.target && e.target.classList.contains('filter-btn')) {
     document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
