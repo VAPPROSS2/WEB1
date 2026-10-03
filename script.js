@@ -1,5 +1,20 @@
 'use strict';
+// Гарантированное скрытие окна 18+
+window.confirmAge = function() {
+  const modal = document.getElementById('ageModal');
+  if (modal) {
+    modal.style.setProperty('display', 'none', 'important');
+    localStorage.setItem('spirits_age_confirmed', 'true');
+  }
+};
 
+// Проверка при загрузке: если уже нажимали "Да", сразу скрываем
+if (localStorage.getItem('spirits_age_confirmed') === 'true') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('ageModal');
+    if (modal) modal.style.setProperty('display', 'none', 'important');
+  });
+}
 // 1. Каталог благородных напитков
 const PRODUCTS = [
   // ================= ВИНА =================
