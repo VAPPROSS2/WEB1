@@ -1,6 +1,6 @@
 'use strict';
 
-// 1. Каталог благородных напитков (12 товаров строго по категориям)
+// 1. Каталог благородных напитков
 const PRODUCTS = [
   // ================= ВИНА =================
   {
@@ -10,7 +10,7 @@ const PRODUCTS = [
     meta: 'Франция, Бордо • 13.5% об. • 0.75 л',
     price: 48500,
     description: 'Легендарное красное сухое вино высшей категории. Богатый букет с нотами черной смородины, кедра и фиалок.',
-    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80'
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const PRODUCTS = [
     meta: 'Франция, Бургундия • 12.5% об. • 0.75 л',
     price: 8900,
     description: 'Элегантное белое сухое вино из винограда Шардоне с кристальной минеральностью, тонами цитрусов и белых цветов.',
-    image: 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=600&q=80'
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const PRODUCTS = [
     meta: 'Италия, Тоскана • 14.0% об. • 0.75 л',
     price: 21900,
     description: 'Культовое супертосканское вино на основе Санджовезе и Каберне Совиньон. Ноты спелой вишни, табака и темного шоколада.',
-    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80'
   },
 
   // ================= ВИСКИ =================
@@ -39,7 +39,7 @@ const PRODUCTS = [
     meta: 'Шотландия, Спейсайд • 40.0% об. • 0.7 л',
     price: 11500,
     description: 'Сингл молт, выдержанный в бочках из американского и европейского дуба из-под хереса Oloroso. Ноты ириса и цукатов.',
-    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80'
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const PRODUCTS = [
     meta: 'Шотландия, Айла • 43.0% об. • 0.7 л',
     price: 14800,
     description: 'Один из самых знаменитых торфяных виски мира. Глубокий аромат кострового дыма, морских водорослей и сухофруктов.',
-    image: 'https://images.unsplash.com/photo-1582819509241-913417cba4b4?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1582819509241-913417cba4b4?w=600&q=80'
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ const PRODUCTS = [
     meta: 'Ирландия, Корк • 40.0% об. • 0.7 л',
     price: 4990,
     description: 'Ирландский бленд тройной дистилляции, дозревающий в дважды обожженных бочках из-под бурбона. Бархатистый ванильный вкус.',
-    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=600&q=80'
   },
 
   // ================= ШАМПАНСКОЕ =================
@@ -68,7 +68,7 @@ const PRODUCTS = [
     meta: 'Франция, Шампань • 12.5% об. • 0.75 л',
     price: 34900,
     description: 'Винтажное премиальное шампанское. Тонкий перляж, оттенки бриоши, поджаренного миндаля и свежих белых персиков.',
-    image: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=600&q=80'
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ const PRODUCTS = [
     meta: 'Франция, Эперне • 12.0% об. • 0.75 л',
     price: 8900,
     description: 'Эталон классического французского шампанского. Яркий свежий фруктовый букет с тонами зеленых яблок и цитрусовых.',
-    image: 'https://images.unsplash.com/photo-1580657274234-7339717f4541?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1580657274234-7339717f4541?w=600&q=80'
   },
   {
     id: 9,
@@ -86,7 +86,7 @@ const PRODUCTS = [
     meta: 'Франция, Реймс • 12.0% об. • 0.75 л',
     price: 9400,
     description: 'Знаменитое шампанское «Вдова Клико». Доминирующий сорт Пино Нуар придает напитку выразительную структуру и мощь.',
-    image: 'https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?w=600&q=80'
   },
 
   // ================= КОНЬЯК =================
@@ -97,7 +97,7 @@ const PRODUCTS = [
     meta: 'Франция, Коньяк • 40.0% об. • 0.7 л',
     price: 27900,
     description: 'Оригинальный коньяк класса XO. Ассамбляж сотни зрелых спиртов с нотами засахаренных фруктов, кожи и специй.',
-    image: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=600&q=80'
   },
   {
     id: 11,
@@ -106,7 +106,7 @@ const PRODUCTS = [
     meta: 'Франция, Коньяк • 40.0% об. • 0.7 л',
     price: 7600,
     description: 'Создан исключительно из винограда Гранд и Пти Шампань. Округлый вкус с оттенками спелых абрикосов, ванили и лакрицы.',
-    image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80'
   },
   {
     id: 12,
@@ -115,15 +115,15 @@ const PRODUCTS = [
     meta: 'Франция, Жарнак • 40.0% об. • 0.7 л',
     price: 24500,
     description: 'Императорский коньяк с бархатным насыщенным вкусом, нюансами крем-брюле, апельсинового джема и благородного ириса.',
-    image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=700&q=80'
+    image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=600&q=80'
   }
 ];
 
 // Ключи LocalStorage
-const STORAGE_KEY = 'spirits_store_cart';
-const AGE_STORAGE_KEY = 'spirits_age_confirmed';
+const STORAGE_KEY = 'spirits_store_cart_v1';
+const AGE_STORAGE_KEY = 'spirits_age_confirmed_v1';
 
-// Вспомогательная функция безопасной загрузки корзины
+// Безопасная загрузка корзины
 function loadCart() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -141,58 +141,37 @@ function saveCart() {
   }
 }
 
-// Состояние приложения
+// Глобальное состояние
 let cart = loadCart();
 let currentCategory = 'all';
 let searchQuery = '';
 
-// DOM элементы
-const productsGrid = document.getElementById('productsGrid');
-const noProducts = document.getElementById('noProducts');
-const cartBadge = document.getElementById('cartBadge');
-const cartModal = document.getElementById('cartModal');
-const openCartBtn = document.getElementById('openCartBtn');
-const closeCartBtn = document.getElementById('closeCartBtn');
-const cartOverlay = document.getElementById('cartOverlay');
-const cartList = document.getElementById('cartList');
-const cartEmptyMsg = document.getElementById('cartEmptyMsg');
-const cartTotalPrice = document.getElementById('cartTotalPrice');
-const checkoutBtn = document.getElementById('checkoutBtn');
-const clearCartBtn = document.getElementById('clearCartBtn');
-
-const orderModal = document.getElementById('orderModal');
-const closeOrderBtn = document.getElementById('closeOrderBtn');
-const orderOverlay = document.getElementById('orderOverlay');
-const orderForm = document.getElementById('orderForm');
-const toastEl = document.getElementById('toast');
-
-const searchInput = document.getElementById('searchInput');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const ageModal = document.getElementById('ageModal');
-
+// Вспомогательная функция форматирования цены
 const formatPrice = (price) => `${price.toLocaleString('ru-RU')} ₽`;
 
 // ==========================================================================
 // 18+ Верификация возраста
 // ==========================================================================
 window.confirmAge = function() {
-  if (ageModal) {
-    ageModal.classList.add('is-hidden');
-    localStorage.setItem(AGE_STORAGE_KEY, 'true');
-  }
+  const modal = document.getElementById('ageModal');
+  if (modal) modal.classList.add('is-hidden');
+  localStorage.setItem(AGE_STORAGE_KEY, 'true');
 };
 
-function checkAgeVerification() {
-  if (localStorage.getItem(AGE_STORAGE_KEY) === 'true' && ageModal) {
-    ageModal.classList.add('is-hidden');
+function checkAge() {
+  if (localStorage.getItem(AGE_STORAGE_KEY) === 'true') {
+    const modal = document.getElementById('ageModal');
+    if (modal) modal.classList.add('is-hidden');
   }
 }
 
 // ==========================================================================
-// Отрисовка товаров
+// Отрисовка товаров каталога
 // ==========================================================================
 function renderProducts() {
-  if (!productsGrid) return;
+  const grid = document.getElementById('productsGrid');
+  const noProducts = document.getElementById('noProducts');
+  if (!grid) return;
 
   const filtered = PRODUCTS.filter((item) => {
     const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
@@ -202,14 +181,14 @@ function renderProducts() {
   });
 
   if (filtered.length === 0) {
-    productsGrid.innerHTML = '';
+    grid.innerHTML = '';
     if (noProducts) noProducts.style.display = 'block';
     return;
   }
 
   if (noProducts) noProducts.style.display = 'none';
 
-  productsGrid.innerHTML = filtered.map((item) => `
+  grid.innerHTML = filtered.map((item) => `
     <article class="product-card">
       <div class="product-card__image-wrap">
         <img class="product-card__img" src="${item.image}" alt="${item.title}" loading="lazy">
@@ -223,7 +202,7 @@ function renderProducts() {
         <p class="product-card__description">${item.description}</p>
         <div class="product-card__footer">
           <span class="product-card__price">${formatPrice(item.price)}</span>
-          <button class="btn btn--primary" onclick="addToCart(${item.id})">
+          <button type="button" class="btn btn--primary" onclick="addToCart(${item.id})">
             В корзину
           </button>
         </div>
@@ -233,7 +212,7 @@ function renderProducts() {
 }
 
 // ==========================================================================
-// Логика корзины (Добавление, изменение, удаление, очистка)
+// Логика корзины (Добавление, пересчет, удаление, очистка)
 // ==========================================================================
 window.addToCart = function(productId) {
   const existing = cart.find((i) => i.id === productId);
@@ -263,7 +242,7 @@ window.changeQuantity = function(productId, delta) {
 
   item.quantity += delta;
   if (item.quantity <= 0) {
-    removeFromCart(productId);
+    window.removeFromCart(productId);
     return;
   }
 
@@ -277,17 +256,22 @@ window.removeFromCart = function(productId) {
   updateCartUI();
 };
 
-if (clearCartBtn) {
-  clearCartBtn.addEventListener('click', () => {
-    if (cart.length === 0) return;
-    cart = [];
-    saveCart();
-    updateCartUI();
-    showToast('Корзина полностью очищена');
-  });
-}
+window.clearCart = function() {
+  if (cart.length === 0) return;
+  cart = [];
+  saveCart();
+  updateCartUI();
+  showToast('Корзина полностью очищена');
+};
 
 function updateCartUI() {
+  const cartBadge = document.getElementById('cartBadge');
+  const cartTotalPrice = document.getElementById('cartTotalPrice');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const clearCartBtn = document.getElementById('clearCartBtn');
+  const cartList = document.getElementById('cartList');
+  const cartEmptyMsg = document.getElementById('cartEmptyMsg');
+
   if (cartBadge) {
     const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
     cartBadge.textContent = totalCount;
@@ -316,71 +300,76 @@ function updateCartUI() {
           <div class="cart-item__price">${formatPrice(i.price)}</div>
         </div>
         <div class="cart-item__controls">
-          <button class="quantity-btn" onclick="changeQuantity(${i.id}, -1)">-</button>
+          <button type="button" class="quantity-btn" onclick="changeQuantity(${i.id}, -1)">-</button>
           <span class="quantity-value">${i.quantity}</span>
-          <button class="quantity-btn" onclick="changeQuantity(${i.id}, 1)">+</button>
+          <button type="button" class="quantity-btn" onclick="changeQuantity(${i.id}, 1)">+</button>
         </div>
-        <button class="cart-item__remove" onclick="removeFromCart(${i.id})" title="Удалить">&times;</button>
+        <button type="button" class="cart-item__remove" onclick="removeFromCart(${i.id})" title="Удалить">&times;</button>
       </li>
     `).join('');
   }
 }
 
 // ==========================================================================
-// Модальные окна
+// Управление модальными окнами
 // ==========================================================================
-function openModal(modal) {
-  if (!modal) return;
-  modal.classList.add('is-active');
-  modal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
+window.openCartModal = function() {
+  const modal = document.getElementById('cartModal');
+  if (modal) {
+    modal.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+  }
+};
 
-function closeModal(modal) {
-  if (!modal) return;
-  modal.classList.remove('is-active');
-  modal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
+window.closeCartModal = function() {
+  const modal = document.getElementById('cartModal');
+  if (modal) {
+    modal.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+};
 
-if (openCartBtn) openCartBtn.addEventListener('click', () => openModal(cartModal));
-if (closeCartBtn) closeCartBtn.addEventListener('click', () => closeModal(cartModal));
-if (cartOverlay) cartOverlay.addEventListener('click', () => closeModal(cartModal));
+window.goToCheckout = function() {
+  window.closeCartModal();
+  const orderModal = document.getElementById('orderModal');
+  if (orderModal) {
+    orderModal.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+  }
+};
 
-if (checkoutBtn) {
-  checkoutBtn.addEventListener('click', () => {
-    closeModal(cartModal);
-    openModal(orderModal);
-  });
-}
-
-if (closeOrderBtn) closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
-if (orderOverlay) orderOverlay.addEventListener('click', () => closeModal(orderModal));
+window.closeOrderModal = function() {
+  const orderModal = document.getElementById('orderModal');
+  if (orderModal) {
+    orderModal.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+};
 
 // ==========================================================================
-// Оформление заказа (по критериям ТЗ)
+// Оформление заказа (валидация + alert по ТЗ)
 // ==========================================================================
-if (orderForm) {
-  orderForm.addEventListener('submit', (e) => {
+document.addEventListener('submit', (e) => {
+  if (e.target && e.target.id === 'orderForm') {
     e.preventDefault();
-
-    const inputs = orderForm.querySelectorAll('.form-input');
+    const form = e.target;
+    const inputs = form.querySelectorAll('.form-input');
     let valid = true;
 
     inputs.forEach((input) => {
       const parent = input.closest('.form-group');
       if (!input.checkValidity()) {
-        parent.classList.add('has-error');
+        if (parent) parent.classList.add('has-error');
         valid = false;
       } else {
-        parent.classList.remove('has-error');
+        if (parent) parent.classList.remove('has-error');
       }
     });
 
     if (!valid) return;
 
-    closeModal(orderModal);
-    orderForm.reset();
+    window.closeOrderModal();
+    form.reset();
 
     cart = [];
     saveCart();
@@ -388,37 +377,35 @@ if (orderForm) {
 
     alert('Заказ создан!');
     showToast('Заказ создан! Менеджер свяжется с вами.');
-  });
-
-  orderForm.querySelectorAll('.form-input').forEach((input) => {
-    input.addEventListener('input', () => {
-      input.closest('.form-group').classList.remove('has-error');
-    });
-  });
-}
-
-// ==========================================================================
-// Фильтры категорий и Живой поиск
-// ==========================================================================
-filterBtns.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentCategory = btn.dataset.category;
-    renderProducts();
-  });
+  }
 });
 
-if (searchInput) {
-  searchInput.addEventListener('input', (e) => {
+document.addEventListener('input', (e) => {
+  if (e.target && e.target.classList.contains('form-input')) {
+    const parent = e.target.closest('.form-group');
+    if (parent) parent.classList.remove('has-error');
+  }
+
+  if (e.target && e.target.id === 'searchInput') {
     searchQuery = e.target.value;
     renderProducts();
-  });
-}
+  }
+});
+
+// Клик по фильтрам категорий
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentCategory = e.target.dataset.category;
+    renderProducts();
+  }
+});
 
 // Toast
 let toastTimer;
 function showToast(msg) {
+  const toastEl = document.getElementById('toast');
   if (!toastEl) return;
   clearTimeout(toastTimer);
   toastEl.textContent = msg;
@@ -429,16 +416,16 @@ function showToast(msg) {
 }
 
 // ==========================================================================
-// Запуск приложения
+// Инициализация
 // ==========================================================================
-function startApp() {
-  checkAgeVerification();
+function start() {
+  checkAge();
   renderProducts();
   updateCartUI();
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startApp);
+  document.addEventListener('DOMContentLoaded', start);
 } else {
-  startApp();
+  start();
 }
