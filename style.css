@@ -595,7 +595,7 @@ body {
 }
 
 .age-modal.is-hidden {
-  display: none;
+  display: none !important;
 }
 
 .age-modal__content {
