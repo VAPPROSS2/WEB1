@@ -1,23 +1,23 @@
 /* ==========================================================================
-   Базовые сбросы и переменные
+   Премиальная палитра (Deep Slate & Gold)
    ========================================================================== */
 :root {
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+  --color-primary: #d4af37;        /* Благородное золото */
+  --color-primary-hover: #b89728;  
+  --color-bg: #111114;             /* Глубокий темный фон */
+  --color-surface: #1a1a1f;        /* Карточки */
+  --color-surface-hover: #23232a;
+  --color-text: #f3f4f6;           /* Светлый текст */
+  --color-text-muted: #9ca3af;     
+  --color-border: #2e2e38;         /* Элегантные темные рамки */
   --color-danger: #ef4444;
-  --color-success: #10b981;
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-  --transition: all 0.2s ease-in-out;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
+  --transition: all 0.25s ease-in-out;
 }
 
 *, *::before, *::after {
@@ -30,63 +30,70 @@ body {
   font-family: var(--font-family);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.6;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* ==========================================================================
-   Сетка и Лейаут
-   ========================================================================== */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
+/* ==========================================================================
+   Шапка
+   ========================================================================== */
 .header {
-  background-color: var(--color-surface);
+  background-color: rgba(26, 26, 31, 0.95);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 50;
+  backdrop-filter: blur(8px);
 }
 
 .header__container {
-  height: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-}
-
-.main {
-  flex: 1;
-  padding: 40px 0;
-}
-
-.section-title {
-  font-size: 1.875rem;
+  color: var(--color-primary);
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-bottom: 24px;
+  letter-spacing: 0.5px;
 }
 
-.footer {
-  background-color: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-  padding: 24px 0;
-  margin-top: auto;
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-  text-align: center;
+.header__search {
+  flex: 1;
+  max-width: 420px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: #121216;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
 /* ==========================================================================
@@ -96,7 +103,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 18px;
+  padding: 11px 20px;
   font-size: 0.95rem;
   font-weight: 600;
   border-radius: var(--radius-sm);
@@ -107,15 +114,36 @@ body {
 
 .btn--primary {
   background-color: var(--color-primary);
-  color: #fff;
+  color: #111114;
 }
 
 .btn--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
 }
 
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-text);
+}
+
+.btn--danger {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--color-danger);
+}
+
+.btn--danger:hover {
+  background: var(--color-danger);
+  color: #fff;
+}
+
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -124,19 +152,17 @@ body {
 }
 
 .cart-btn {
-  position: relative;
-  background: none;
+  background: #121216;
   border: 1px solid var(--color-border);
-  padding: 8px 16px;
+  color: var(--color-text);
+  padding: 10px 18px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  font-weight: 600;
   transition: var(--transition);
-  background-color: var(--color-surface);
 }
 
 .cart-btn:hover {
@@ -145,28 +171,63 @@ body {
 
 .cart-badge {
   background-color: var(--color-primary);
-  color: #fff;
-  border-radius: 9999px;
-  font-size: 0.75rem;
+  color: #111;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
   padding: 2px 7px;
-  min-width: 20px;
-  text-align: center;
 }
 
 /* ==========================================================================
-   Каталог товаров (Grid + Flex)
+   Категории (Фильтры)
    ========================================================================== */
+.categories-nav {
+  display: flex;
+  gap: 12px;
+  margin: 32px 0 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.filter-btn {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--color-primary);
+  color: #111;
+  border-color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Сетка каталога
+   ========================================================================== */
+.main {
+  flex: 1;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
+  gap: 28px;
+  margin-bottom: 50px;
 }
 
-/* Карточка товара (Семантический <article>) */
 .product-card {
   background-color: var(--color-surface);
-  border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -175,15 +236,16 @@ body {
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 
 .product-card__image-wrap {
   width: 100%;
-  padding-top: 70%;
+  padding-top: 75%;
   position: relative;
-  background-color: #f1f5f9;
+  background-color: #0c0c0e;
 }
 
 .product-card__img {
@@ -195,23 +257,46 @@ body {
   object-fit: cover;
 }
 
+.product-card__badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.badge {
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--color-border);
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
 .product-card__body {
-  padding: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .product-card__title {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.product-card__meta {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
 }
 
 .product-card__description {
   font-size: 0.875rem;
   color: var(--color-text-muted);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   flex: 1;
 }
 
@@ -220,14 +305,41 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
-  gap: 12px;
 }
 
 .product-card__price {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  color: var(--color-text);
-  white-space: nowrap;
+  color: #fff;
+}
+
+.no-products {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Подвал
+   ========================================================================== */
+.footer {
+  background-color: #0c0c0e;
+  border-top: 1px solid var(--color-border);
+  padding: 36px 0;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer__warning {
+  color: #71717a;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.footer__copy {
+  color: #52525b;
+  font-size: 0.8rem;
 }
 
 /* ==========================================================================
@@ -254,13 +366,14 @@ body {
 .modal__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
 }
 
 .modal__dialog {
   position: relative;
   background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 520px;
@@ -288,11 +401,10 @@ body {
 .modal__close {
   background: none;
   border: none;
-  font-size: 1.75rem;
-  line-height: 1;
+  font-size: 1.8rem;
   color: var(--color-text-muted);
   cursor: pointer;
-  padding: 0;
+  line-height: 1;
 }
 
 .modal__close:hover {
@@ -307,11 +419,17 @@ body {
 .modal__footer {
   padding: 20px 24px;
   border-top: 1px solid var(--color-border);
-  background-color: #fafbfc;
+  background-color: #151518;
+}
+
+.modal__footer-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
 }
 
 /* ==========================================================================
-   Список товаров в корзине
+   Корзина
    ========================================================================== */
 .cart-list {
   list-style: none;
@@ -323,22 +441,17 @@ body {
 .cart-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding-bottom: 16px;
+  gap: 14px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--color-border);
 }
 
-.cart-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
 .cart-item__img {
-  width: 60px;
-  height: 60px;
+  width: 54px;
+  height: 54px;
   border-radius: var(--radius-sm);
   object-fit: cover;
-  background-color: #f1f5f9;
+  background-color: #000;
 }
 
 .cart-item__info {
@@ -352,14 +465,14 @@ body {
 }
 
 .cart-item__price {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  color: var(--color-primary);
 }
 
 .cart-item__controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .quantity-btn {
@@ -367,25 +480,19 @@ body {
   height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  background-color: var(--color-surface);
+  background: #111;
+  color: #fff;
   cursor: pointer;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
 }
 
 .quantity-btn:hover {
   border-color: var(--color-primary);
-  color: var(--color-primary);
 }
 
 .quantity-value {
-  font-size: 0.9rem;
-  font-weight: 600;
-  width: 20px;
+  width: 22px;
   text-align: center;
+  font-weight: 600;
 }
 
 .cart-item__remove {
@@ -393,31 +500,28 @@ body {
   border: none;
   color: var(--color-danger);
   cursor: pointer;
+  font-size: 1.2rem;
   padding: 4px;
-  font-size: 1.1rem;
 }
 
 .cart-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 16px;
 }
 
 .cart-total-price {
-  font-size: 1.35rem;
   color: var(--color-primary);
-  font-weight: 700;
+  font-size: 1.35rem;
 }
 
 .cart-empty-message {
   text-align: center;
   color: var(--color-text-muted);
-  padding: 40px 0;
-  font-size: 1rem;
-  display: none;
+  padding: 30px 0;
 }
 
 /* ==========================================================================
@@ -436,24 +540,23 @@ body {
 }
 
 .form-label {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
 .form-input {
   width: 100%;
   padding: 10px 14px;
+  background-color: #121216;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  color: var(--color-text);
   font-size: 0.95rem;
-  font-family: inherit;
   outline: none;
-  transition: var(--transition);
 }
 
 .form-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .form-error {
@@ -471,19 +574,68 @@ body {
 }
 
 /* ==========================================================================
-   Toast Notification
+   Диалог 18+ (Age Modal)
+   ========================================================================== */
+.age-modal {
+  position: fixed;
+  inset: 0;
+  background-color: #0b0b0e;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.age-modal.is-hidden {
+  display: none;
+}
+
+.age-modal__content {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  max-width: 440px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.age-badge {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #111;
+  font-weight: 800;
+  font-size: 1.2rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.age-modal__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.age-modal__actions .btn {
+  flex: 1;
+}
+
+/* ==========================================================================
+   Toast-уведомление
    ========================================================================== */
 .toast {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background-color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-primary);
   color: #fff;
   padding: 14px 20px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-lg);
   font-size: 0.95rem;
-  font-weight: 500;
   transform: translateY(100px);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -495,24 +647,17 @@ body {
   opacity: 1;
 }
 
-.toast--success {
-  background-color: var(--color-success);
-}
-
 /* ==========================================================================
-   Адаптивность (Медиазапросы)
+   Медиазапросы (Адаптив)
    ========================================================================== */
-/* Планшеты (от 640px) */
 @media (min-width: 640px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Ноутбуки и мониторы (от 1024px) */
 @media (min-width: 1024px) {
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
   }
 }
